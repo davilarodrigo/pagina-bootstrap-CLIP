@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Vexillum</title>
+    <!-- BOOTSTRAP CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
+        integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+    <!-- FONT AWESOME -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"
+        integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+    <!-- CUSTOM CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- ------------------------------------------------------------------------------------------------------------- -->
+
+    <!-- NAV -->
+    <nav class="navbar   navbar-expand-lg bg-light navbar-light ">
+        <div class="navbar-brand" href="#">
+            <img src="img/icono.png" height="30px" alt="">
+            Vexillum
+        </div>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link" href="index.html">Pagina Principal</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="pag1.html">Enciclopedia</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="juegos.html">Juegos</a>
+                <li class="nav-item ">
+                    <a class="nav-link text-dark" href="contacto.html">Contacto</a>
+                </li>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Juego 1 -->
+
+    <div id="div1" class="container">
+
+        <div class="jumbotron">
+            <h1 class="display-4">Juego 1</h1>
+            <p class="lead">En el siguiente juego se le mostrara la bandera, y usted tendra que adivinar a que pais
+                pertenece.</p>
+            <hr class="my-4">
+            <Button onclick="comenzar()" class="btn btn-primary btn-lg" role="button">Comenzar</Button>
+        </div>
+    </div>
+
+    <div id="div2" style="display: none;" class="container align-items-center">
+
+        <div class="jumbotron">
+            <h1 class="display-4 mb-5">¿A que pais pertenece esta bandera?</h1>
+
+            <div class="container justify-content-center">
+                <div class="row align-items-center ">
+                    <div class="ml-auto col-6">
+                        <div class="media">
+                            <img src="img/seychelles.png" height="200px" class="mr-3" alt="...">
+                        </div>
+                    </div>
+                    <div class="col-6 ">
+                        <input id="inc1" type="radio" name="opciones">
+                        <label>Liechtenstein</label><br>
+                        <input id="rb-correcto" name="opciones" type="radio">
+                        <label>Seychelles</label><br>
+                        <input id="inc2" type="radio" name="opciones">
+                        <label>Sri Lanka</label><br>
+                        <input id="inc3" type="radio" name="opciones">
+                        <label>Jamaica</label><br>
+
+                        <button onclick="enviar()" class="btn btn-primary btn-lg" href="#"
+                            role="button">Enviar!</button>
+                        <p>(Le quedan <b id="indicador">x</b> intentos)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <div id="alert-error" style="display: none;" class="container alert alert-warning" role="alert">
+        <b>
+            Incorrecto! </b>Puede volver a intentar.
+    </div>
+
+    <div id="alert-pista" style="display: none;" class="container alert alert-danger" role="alert">
+        <b> Incorrecto! </b> ultimo intento <br>
+        <b> Pista: </b>
+        El pais esta compuesto por islas.
+    </div>
+
+    <div id="alert-seleccione" style="display: none;" class="container alert alert-info" role="alert">
+        Seleccione uno de los paises antes de tocar el boton enviar.
+    </div>
+
+    <div id="alert-ganar" style="display: none;" class="text-center p-5 mt-5 mt-5 mt-5  container alert alert-success"
+        role="alert">
+        <h4 class="alert-heading">Felicitaciones!</h4>
+        <p>Gano el Juego!!</p>
+    </div>
+
+    <div id="alert-perder" style="display: none;" class="container alert alert-danger" role="alert">
+        <h4 class="alert-heading">Incorrecto! </h4>
+        <p>Ya no tiene mas intentos! :(</p>
+    </div>
+
+
+
+
+    <!-- ------------------------------------------------------------------------------------------------------------- -->
+    <script>
+        var intentos = 3;
+
+
+        var indicador = document.getElementById("indicador");
+
+
+        var rb = document.getElementById("rb-correcto");
+        var d1 = document.getElementById("div1");
+        var d2 = document.getElementById("div2");
+
+        var inc1 = document.getElementById("inc1");
+        var inc2 = document.getElementById("inc2");
+        var inc3 = document.getElementById("inc3");
+
+        var alert_error = document.getElementById("alert-error");
+        var alert_perder = document.getElementById("alert-perder");
+        var alert_ganar = document.getElementById("alert-ganar");
+        var alert_pista = document.getElementById("alert-pista");
+        var alert_seleccione = document.getElementById("alert-seleccione");
+
+        function ocultar_todos() {
+
+            alert_error.style.display = "none";
+            alert_ganar.style.display = "none";
+            alert_perder.style.display = "none";
+            alert_pista.style.display = "none";
+            alert_seleccione.style.display = "none";
+
+        }
+
+        function error() {
+            alert_error.style.display = "block";
+        }
+        function ganar() {
+            alert_ganar.style.display = "block";
+        }
+        function perder() {
+            alert_perder.style.display = "block";
+        }
+        function pista() {
+            alert_pista.style.display = "block";
+        }
+        function seleccione() {
+            alert_seleccione.style.display = "block";
+        }
+
+        indicador.innerHTML = intentos
+
+        function comenzar() {
+
+            d1.style.display = "none";
+
+            d2.style.display = "block";
+        }
+
+        function enviar() {
+
+            if (rb.checked) {
+                ocultar_todos();
+                d2.style.display = "none";
+                ganar();
+
+            } else {
+                if (inc1.checked || inc2.checked || inc3.checked) {
+                    //camino cuando se selecciono mal
+                    ocultar_todos();
+                    error();
+                    intentos = intentos - 1;
+                    indicador.innerHTML = intentos
+
+                    if (intentos == 1) {
+                        ocultar_todos();
+                        pista();
+                    }
+
+                    if (intentos == 0) {
+                        ocultar_todos();
+                        d2.style.display = "none";
+                        perder();
+                    }
+
+                } else {
+                    //camino cuando no se selecciono nada
+                    ocultar_todos();
+                    seleccione();
+                }
+            }
+
+
+        }
+
+
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"
+        integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
+        crossorigin="anonymous"></script>
+
+</body>
+
+</html>
