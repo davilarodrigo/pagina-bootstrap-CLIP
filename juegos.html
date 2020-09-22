@@ -53,6 +53,8 @@
             <h1 class="display-4">Juego 1</h1>
             <p class="lead">En el siguiente juego se le mostrara la bandera, y usted tendra que adivinar a que pais
                 pertenece.</p>
+                <p class="lead">Si adivina de manera correcta, podra continuar jugando.</p>
+                <p class="lead">Cuando se quede sin intentos, se le mostrara su puntaje total.</p>
             <hr class="my-4">
             <Button onclick="comenzar()" class="btn btn-primary btn-lg" role="button">Comenzar</Button>
         </div>
@@ -67,18 +69,18 @@
                 <b>
                     Incorrecto! </b>Puede volver a intentar.
             </div>
-        
+
             <div id="alert-pista" style="display: none;" class="container alert alert-danger" role="alert">
                 <b> Incorrecto! </b> ultimo intento <br>
-              
-                <div id="texto_pista">   <b>Pista: </b>El pais esta compuesto por islas. </div>
+
+                <div id="texto_pista"> <b>Pista: </b>El pais esta compuesto por islas. </div>
             </div>
-        
+
             <div id="alert-seleccione" style="display: none;" class="container alert alert-info" role="alert">
                 Seleccione uno de los paises antes de tocar el boton enviar.
             </div>
-    
-        
+
+
 
             <div class="container justify-content-center ">
                 <div class="row align-items-center mt-2">
@@ -106,88 +108,110 @@
             </div>
         </div>
     </div>
-    
+
     <div id="alert-ganar" style="display: none;" class="text-center p-5 mt-5 mt-5 mt-5  container alert alert-success"
-    role="alert">
-    <h4 class="alert-heading">Felicitaciones!</h4>
-    <p>Gano el Juego!!</p>
-</div>
+        role="alert">
+        <h4 class="alert-heading">Respuesta Correcta!</h4>
+        <p>Felicitaciones!</p>
+        <button onclick="comenzar()" class="btn btn-success btn-lg mx-auto my-2">Continuar</button>
 
-<div id="alert-perder" style="display: none;" class="container alert alert-danger" role="alert">
-    <h4 class="alert-heading">Incorrecto! </h4>
-    <p>Ya no tiene mas intentos! :(</p>
-</div>
+    </div>
+
+    <div id="alert-perder" style="display: none;" class="container alert alert-danger" role="alert">
+        <h4 class="alert-heading">Incorrecto! </h4>
+        <p>Ya no tiene mas intentos! :(</p>
+        <p id="puntaje"></p>
+    </div>
 
 
 
-  
+
 
 
 
     <!-- ------------------------------------------------------------------------------------------------------------- -->
     <script>
         //carga de numero de intentos
-        var intentos = 3;
-        var indicador = document.getElementById("indicador");
-        indicador.innerHTML = intentos
-
-        //seleccion bandera
-
-        var lista_banderas = ["seychelles", "ecuador", "colombia", "argentina"];
-        var lista_pistas =
-            ["El pais esta compuesto por islas.",
-                "Pais al oeste de Brasil",
-                "Este pais tiene costas tanto en el oceano pacifico como en el atlantico",
-                "Pais al sur de latinoamerica"];
-
-        var lista_paises = lista_banderas.concat( ["italia", "españa", "mexico", "egipto"]);
-
-        const random = Math.random() * lista_banderas.length;
-
-        const bandera_correcta = lista_banderas[Math.floor(random)];
-        const pista_correcta = lista_pistas[Math.floor(random)];
-
-        console.log(lista_paises);
-        lista_paises.splice(random,1); //esto elimina n elementos a partir del que se indica (poniendo 1, solo se elimina el que se indica)
-        console.log(lista_paises);
-
-        //carga imagen y pista
-        var imagen = document.getElementById("imagen");
-        var texto_pista = document.getElementById("texto_pista");
-        imagen.src = "img/" + bandera_correcta + ".png";
-        texto_pista.innerHTML =  " <b>Pista: </b>"+pista_correcta;
-        console.log("adivinanza correcta: " + bandera_correcta);
-
-
-        //radio buttons
-        const posicion = Math.floor(Math.random() * 4);
-
-        var rb = document.getElementById("rb-correcto");
 
         var inc0 = document.getElementById("inc0");
         var inc1 = document.getElementById("inc1");
         var inc2 = document.getElementById("inc2");
         var inc3 = document.getElementById("inc3");
 
-        var texto0 = document.getElementById("texto0");        
+        var texto0 = document.getElementById("texto0");
         var texto1 = document.getElementById("texto1");
         var texto2 = document.getElementById("texto2");
         var texto3 = document.getElementById("texto3");
+        var puntaje = document.getElementById("puntaje");
+
+        var posicion;
+        var intentos=5;
+        var rb_correcto;        
+        var puntaje_total=0;
+
+        
+
+        function comenzar() {
+
+            var indicador = document.getElementById("indicador");
+            indicador.innerHTML = intentos
+
+            //seleccion bandera
+
+            var lista_banderas = ["seychelles", "ecuador",
+                "Guinea", "palaos", "Kuwait", "Jordania", "Malí", "Tuvalu", "laos", "Banglades", "Benín", "Fiyi", "Eslovenia", "Eslovaquia", "Palestina", "nicaragua",
+                "nicaragua", "Camerún", "guatemala", "Serbia", "norcorea", "india"];
+            var lista_pistas =
+                ["El pais esta compuesto por islas.",
+                    "Pais al oeste de Brasil",
+                ];
+
+            var lista_paises = lista_banderas.concat(["italia", "españa", "mexico", "egipto","rusia"]);
+
+            const random = Math.random() * lista_banderas.length;
+
+            const bandera_correcta = lista_banderas[Math.floor(random)];
+            const pista_correcta = lista_pistas[Math.floor(random)];
+
+            console.log(lista_paises);
+            lista_paises.splice(random, 1); //esto elimina n elementos a partir del que se indica (poniendo 1, solo se elimina el que se indica)
+            console.log(lista_paises);
+
+            //carga imagen y pista
+            var imagen = document.getElementById("imagen");
+            var texto_pista = document.getElementById("texto_pista");
+            imagen.src = "img/" + bandera_correcta + ".png";
+            texto_pista.innerHTML = " <b>Pista: </b>" + pista_correcta;
+            console.log("adivinanza correcta: " + bandera_correcta);
 
 
-        var radio_buttons = [inc0, inc1, inc2, inc3];
-        var textos = [texto0, texto1, texto2, texto3];
+            //radio buttons
+            posicion = Math.floor(Math.random() * 4);
 
-        for(i=0; i<textos.length;i++){
-            const numero = Math.floor( Math.random() * lista_paises.length);
-            textos[i].innerHTML=lista_paises[numero];
-            console.log("probando");
-            lista_paises.splice(numero,1);     
+            var radio_buttons = [inc0, inc1, inc2, inc3];
+            var textos = [texto0, texto1, texto2, texto3];
+
+            for (i = 0; i < textos.length; i++) {
+                const numero = Math.floor(Math.random() * lista_paises.length);
+                textos[i].innerHTML = lista_paises[numero];
+                console.log("probando");
+                lista_paises.splice(numero, 1);
+            }
+
+            rb_correcto = radio_buttons[posicion];
+            var correcto = radio_buttons[posicion];
+            textos[posicion].innerHTML = bandera_correcta;
+
+
+            d1.style.display = "none";
+            d2.style.display = "block";
+
+            alert_ganar.style.display = "none";
+            alert_perder.style.display = "none";
+
+
+
         }
-
-        radio_buttons[posicion].id="correcto";
-        var correcto =radio_buttons[posicion];
-        textos[posicion].innerHTML=bandera_correcta;
 
         //alerts y divs
         var alert_error = document.getElementById("alert-error");
@@ -216,6 +240,7 @@
         }
         function perder() {
             alert_perder.style.display = "block";
+            puntaje.innerHTML="<b>Puntaje total:</b> "+puntaje_total;
         }
         function pista() {
             alert_pista.style.display = "block";
@@ -224,19 +249,13 @@
             alert_seleccione.style.display = "block";
         }
 
-        function comenzar() {
-
-            d1.style.display = "none";
-
-            d2.style.display = "block";
-        }
-
         function enviar() {
 
-            if (correcto.checked) {
+            if (rb_correcto.checked) {
                 //camino cuando se eligio bien
                 ocultar_todos();
                 d2.style.display = "none";
+                puntaje_total=puntaje_total+1;
                 ganar();
 
             } else {
