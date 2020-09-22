@@ -61,24 +61,42 @@
     <div id="div2" style="display: none;" class="container align-items-center">
 
         <div class="jumbotron">
-            <h1 class="display-4 mb-5">¿A que pais pertenece esta bandera?</h1>
+            <h1 class="display-4 mb-3">¿A que pais pertenece esta bandera?</h1>
 
-            <div class="container justify-content-center">
-                <div class="row align-items-center ">
+            <div id="alert-error" style="display: none;" class="container alert alert-warning" role="alert">
+                <b>
+                    Incorrecto! </b>Puede volver a intentar.
+            </div>
+        
+            <div id="alert-pista" style="display: none;" class="container alert alert-danger" role="alert">
+                <b> Incorrecto! </b> ultimo intento <br>
+              
+                <div id="texto_pista">   <b>Pista: </b>El pais esta compuesto por islas. </div>
+            </div>
+        
+            <div id="alert-seleccione" style="display: none;" class="container alert alert-info" role="alert">
+                Seleccione uno de los paises antes de tocar el boton enviar.
+            </div>
+    
+        
+
+            <div class="container justify-content-center ">
+                <div class="row align-items-center mt-2">
                     <div class=" ml-auto col-lg-6 col-sm-12 align-items-center">
                         <div class="media">
-                            <img src="img/seychelles.png" height="200px" class="mr-3" alt="...">
+                            <img id="imagen" src="img/seychelles.png" height="200px" class="mr-auto ml-auto" alt="...">
                         </div>
                     </div>
                     <div class="my-3 ml-auto col-lg-6 col-sm-12 ">
+
+                        <input id="inc0" type="radio" name="opciones">
+                        <label id="texto0"></label><br>
                         <input id="inc1" type="radio" name="opciones">
-                        <label>Liechtenstein</label><br>
-                        <input id="rb-correcto" name="opciones" type="radio">
-                        <label>Seychelles</label><br>
+                        <label id="texto1"></label><br>
                         <input id="inc2" type="radio" name="opciones">
-                        <label>Sri Lanka</label><br>
+                        <label id="texto2"></label><br>
                         <input id="inc3" type="radio" name="opciones">
-                        <label>Jamaica</label><br>
+                        <label id="texto3"> </label><br>
 
                         <button onclick="enviar()" class="btn btn-primary btn-lg" href="#"
                             role="button">Enviar!</button>
@@ -88,61 +106,99 @@
             </div>
         </div>
     </div>
-
-
-
-
-    <div id="alert-error" style="display: none;" class="container alert alert-warning" role="alert">
-        <b>
-            Incorrecto! </b>Puede volver a intentar.
-    </div>
-
-    <div id="alert-pista" style="display: none;" class="container alert alert-danger" role="alert">
-        <b> Incorrecto! </b> ultimo intento <br>
-        <b> Pista: </b>
-        El pais esta compuesto por islas.
-    </div>
-
-    <div id="alert-seleccione" style="display: none;" class="container alert alert-info" role="alert">
-        Seleccione uno de los paises antes de tocar el boton enviar.
-    </div>
-
+    
     <div id="alert-ganar" style="display: none;" class="text-center p-5 mt-5 mt-5 mt-5  container alert alert-success"
-        role="alert">
-        <h4 class="alert-heading">Felicitaciones!</h4>
-        <p>Gano el Juego!!</p>
-    </div>
+    role="alert">
+    <h4 class="alert-heading">Felicitaciones!</h4>
+    <p>Gano el Juego!!</p>
+</div>
 
-    <div id="alert-perder" style="display: none;" class="container alert alert-danger" role="alert">
-        <h4 class="alert-heading">Incorrecto! </h4>
-        <p>Ya no tiene mas intentos! :(</p>
-    </div>
+<div id="alert-perder" style="display: none;" class="container alert alert-danger" role="alert">
+    <h4 class="alert-heading">Incorrecto! </h4>
+    <p>Ya no tiene mas intentos! :(</p>
+</div>
 
+
+
+  
 
 
 
     <!-- ------------------------------------------------------------------------------------------------------------- -->
     <script>
+        //carga de numero de intentos
         var intentos = 3;
-
-
         var indicador = document.getElementById("indicador");
+        indicador.innerHTML = intentos
 
+        //seleccion bandera
+
+        var lista_banderas = ["seychelles", "ecuador", "colombia", "argentina"];
+        var lista_pistas =
+            ["El pais esta compuesto por islas.",
+                "Pais al oeste de Brasil",
+                "Este pais tiene costas tanto en el oceano pacifico como en el atlantico",
+                "Pais al sur de latinoamerica"];
+
+        var lista_paises = lista_banderas.concat( ["italia", "españa", "mexico", "egipto"]);
+
+        const random = Math.random() * lista_banderas.length;
+
+        const bandera_correcta = lista_banderas[Math.floor(random)];
+        const pista_correcta = lista_pistas[Math.floor(random)];
+
+        console.log(lista_paises);
+        lista_paises.splice(random,1); //esto elimina n elementos a partir del que se indica (poniendo 1, solo se elimina el que se indica)
+        console.log(lista_paises);
+
+        //carga imagen y pista
+        var imagen = document.getElementById("imagen");
+        var texto_pista = document.getElementById("texto_pista");
+        imagen.src = "img/" + bandera_correcta + ".png";
+        texto_pista.innerHTML =  " <b>Pista: </b>"+pista_correcta;
+        console.log("adivinanza correcta: " + bandera_correcta);
+
+
+        //radio buttons
+        const posicion = Math.floor(Math.random() * 4);
 
         var rb = document.getElementById("rb-correcto");
-        var d1 = document.getElementById("div1");
-        var d2 = document.getElementById("div2");
 
+        var inc0 = document.getElementById("inc0");
         var inc1 = document.getElementById("inc1");
         var inc2 = document.getElementById("inc2");
         var inc3 = document.getElementById("inc3");
 
+        var texto0 = document.getElementById("texto0");        
+        var texto1 = document.getElementById("texto1");
+        var texto2 = document.getElementById("texto2");
+        var texto3 = document.getElementById("texto3");
+
+
+        var radio_buttons = [inc0, inc1, inc2, inc3];
+        var textos = [texto0, texto1, texto2, texto3];
+
+        for(i=0; i<textos.length;i++){
+            const numero = Math.floor( Math.random() * lista_paises.length);
+            textos[i].innerHTML=lista_paises[numero];
+            console.log("probando");
+            lista_paises.splice(numero,1);     
+        }
+
+        radio_buttons[posicion].id="correcto";
+        var correcto =radio_buttons[posicion];
+        textos[posicion].innerHTML=bandera_correcta;
+
+        //alerts y divs
         var alert_error = document.getElementById("alert-error");
         var alert_perder = document.getElementById("alert-perder");
         var alert_ganar = document.getElementById("alert-ganar");
         var alert_pista = document.getElementById("alert-pista");
         var alert_seleccione = document.getElementById("alert-seleccione");
+        var d1 = document.getElementById("div1");
+        var d2 = document.getElementById("div2");
 
+        //funciones
         function ocultar_todos() {
 
             alert_error.style.display = "none";
@@ -150,7 +206,6 @@
             alert_perder.style.display = "none";
             alert_pista.style.display = "none";
             alert_seleccione.style.display = "none";
-
         }
 
         function error() {
@@ -169,8 +224,6 @@
             alert_seleccione.style.display = "block";
         }
 
-        indicador.innerHTML = intentos
-
         function comenzar() {
 
             d1.style.display = "none";
@@ -180,13 +233,14 @@
 
         function enviar() {
 
-            if (rb.checked) {
+            if (correcto.checked) {
+                //camino cuando se eligio bien
                 ocultar_todos();
                 d2.style.display = "none";
                 ganar();
 
             } else {
-                if (inc1.checked || inc2.checked || inc3.checked) {
+                if (inc0.checked || inc1.checked || inc2.checked || inc3.checked) {
                     //camino cuando se selecciono mal
                     ocultar_todos();
                     error();
