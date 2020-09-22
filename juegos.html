@@ -53,8 +53,8 @@
             <h1 class="display-4">Juego 1</h1>
             <p class="lead">En el siguiente juego se le mostrara la bandera, y usted tendra que adivinar a que pais
                 pertenece.</p>
-                <p class="lead">Si adivina de manera correcta, podra continuar jugando.</p>
-                <p class="lead">Cuando se quede sin intentos, se le mostrara su puntaje total.</p>
+            <p class="lead">Si adivina de manera correcta, podra continuar jugando.</p>
+            <p class="lead">Cuando se quede sin intentos, se le mostrara su puntaje total.</p>
             <hr class="my-4">
             <Button onclick="comenzar()" class="btn btn-primary btn-lg" role="button">Comenzar</Button>
         </div>
@@ -145,11 +145,11 @@
         var puntaje = document.getElementById("puntaje");
 
         var posicion;
-        var intentos=5;
-        var rb_correcto;        
-        var puntaje_total=0;
+        var intentos = 5;
+        var rb_correcto;
+        var puntaje_total = 0;
 
-        
+
 
         function comenzar() {
 
@@ -158,15 +158,16 @@
 
             //seleccion bandera
 
-            var lista_banderas = ["seychelles", "ecuador",
-                "Guinea", "palaos", "Kuwait", "Jordania", "Malí", "Tuvalu", "laos", "Banglades", "Benín", "Fiyi", "Eslovenia", "Eslovaquia", "Palestina", "nicaragua",
-                "nicaragua", "Camerún", "guatemala", "Serbia", "norcorea", "india"];
+            var lista_banderas = ["seychelles", "ecuador", "Guinea", "palaos", "Kuwait",
+                "Jordania", "Malí", "Tuvalu", "laos", "Banglades", "Benín", "Fiyi",
+                "Eslovenia", "Eslovaquia", "Palestina", "nicaragua", "Camerún",
+                "guatemala", "Serbia", "norcorea", "india"];
             var lista_pistas =
                 ["El pais esta compuesto por islas.",
                     "Pais al oeste de Brasil",
                 ];
 
-            var lista_paises = lista_banderas.concat(["italia", "españa", "mexico", "egipto","rusia"]);
+            var lista_paises = lista_banderas.concat(["italia", "españa", "mexico", "egipto", "rusia"]);
 
             const random = Math.random() * lista_banderas.length;
 
@@ -208,7 +209,7 @@
 
             alert_ganar.style.display = "none";
             alert_perder.style.display = "none";
-
+        
 
 
         }
@@ -234,13 +235,14 @@
 
         function error() {
             alert_error.style.display = "block";
+            
         }
         function ganar() {
             alert_ganar.style.display = "block";
         }
         function perder() {
             alert_perder.style.display = "block";
-            puntaje.innerHTML="<b>Puntaje total:</b> "+puntaje_total;
+            puntaje.innerHTML = "<b>Puntaje total:</b> " + puntaje_total;
         }
         function pista() {
             alert_pista.style.display = "block";
@@ -255,7 +257,7 @@
                 //camino cuando se eligio bien
                 ocultar_todos();
                 d2.style.display = "none";
-                puntaje_total=puntaje_total+1;
+                puntaje_total = puntaje_total + 1;
                 ganar();
 
             } else {
@@ -284,7 +286,10 @@
                 }
             }
 
-
+            inc0.checked = false;
+            inc1.checked = false;
+            inc2.checked = false;
+            inc3.checked = false;
         }
 
 
